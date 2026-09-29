@@ -1,0 +1,33 @@
+# secrets and local env
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+secrets.json
+credentials.json
+.secrets/
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# downloaded questions, model runs, local cache
+runs/
+.cache/
+
+# os
+.DS_Store
+Thumbs.db

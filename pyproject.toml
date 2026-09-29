@@ -1,0 +1,24 @@
+[project]
+name = "local-bench"
+version = "0.1.0"
+description = "Run public LLM benchmarks against a local OpenAI-compatible model."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = [
+  "datasets>=2.19",
+  "langdetect>=1.0.9",
+]
+
+[project.scripts]
+local-bench = "local_bench.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"local_bench.third_party.bbh_cot" = ["*.txt"]

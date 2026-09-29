@@ -1,0 +1,15 @@
+The instruction_following_eval package is adapted from Google Research
+(Apache License 2.0). Sentence and word counts use the same rules as that
+checker, with the NLTK punkt download replaced by the regex splitter that
+already ships in instructions_util.py. Scores on number_sentences can differ
+slightly from a punkt-based run.
+
+The BFCL ast_checker is adapted from the Berkeley Function Calling Leaderboard
+in ShishirPatil/gorilla (Apache License 2.0). This copy scores the Python
+prompting track. Java, JavaScript, and multi-turn execution are not included.
+
+The BBH chain-of-thought prompts in third_party/bbh_cot are the published
+cot-prompts from suzgunmirac/BIG-Bench-Hard. BIG-Bench itself is Apache
+License 2.0. The canary line is kept in each file and stripped before the
+prompt is sent to the model. The 3-object, 5-object, and 7-object files for
+logical deduction and tracking shuffled objects are identical upstream.
