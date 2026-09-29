@@ -142,8 +142,8 @@ def math_tasks() -> list[Task]:
         title="GSM8K",
         group="math",
         default_shots=8,
-        protocol="lm-eval gsm8k chain-of-thought 8-shot. 정답은 #### 뒤의 숫자. --shots 0 이면 예시 없이.",
-        blurb="초등학교 문장제 수학 1319문항.",
+        protocol="lm-eval gsm8k chain-of-thought, 8-shot. The answer is the number after ####. --shots 0 sends no examples.",
+        blurb="1,319 grade-school word problems.",
     )
     gsm.build = lambda opts, task=gsm: build_gsm8k(task, opts)
     gsm.grade_fn = grade_number
@@ -153,11 +153,11 @@ def math_tasks() -> list[Task]:
         title="MATH-500",
         group="math",
         protocol=(
-            "MATH 테스트에서 고른 500문항. \\boxed{} 안을 정답과 비교한다. "
-            "정규화한 문자열이 같거나, 양쪽이 모두 실수로 읽힐 때만 같다. "
-            "\\frac{1}{2}와 0.5처럼 식은 같고 표기만 다른 답은 틀리다고 친다."
+            "500 questions drawn from the MATH test. The text inside \\boxed{} is compared with the gold answer. "
+            "They match when the normalized strings are equal, or when both sides parse as floats. "
+            "\\frac{1}{2} and 0.5 count as different answers."
         ),
-        blurb="대회 수학 500문항. 최종 식을 박스로 받는다.",
+        blurb="500 contest-math questions. The final expression is read from a box.",
         build=lambda opts: build_math500(None, opts),
         grade_fn=grade_math,
     )
@@ -165,8 +165,8 @@ def math_tasks() -> list[Task]:
         id="aime2024",
         title="AIME 2024",
         group="math",
-        protocol="AIME 2024 30문항. 0에서 999 사이 정수.",
-        blurb="미국 고교 수학 경시 30문항.",
+        protocol="30 AIME 2024 questions. Integers from 0 to 999.",
+        blurb="30 questions from the 2024 American high-school math contest.",
         build=lambda opts: build_aime(None, opts),
         grade_fn=grade_number,
     )
@@ -174,8 +174,8 @@ def math_tasks() -> list[Task]:
         id="mgsm",
         title="MGSM",
         group="math",
-        protocol="Multilingual GSM 10개 언어, 0-shot. --lang en 처럼 한 언어만 돌릴 수 있다.",
-        blurb="GSM8K를 10개 언어로 옮긴 문항. 언어별 점수도 같이 나온다.",
+        protocol="Multilingual GSM, 10 languages, 0-shot. --lang en runs one language.",
+        blurb="GSM8K translated into 10 languages. Per-language scores are reported too.",
         build=lambda opts: build_mgsm(None, opts),
         grade_fn=grade_number,
     )

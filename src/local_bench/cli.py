@@ -61,41 +61,41 @@ def load_local_env(path: Path | None = None) -> None:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="local-bench",
-        description="로컬 OpenAI 호환 모델로 공개 LLM 벤치마크를 실행합니다.",
+        description="Run public LLM benchmarks on a local OpenAI-compatible model.",
     )
     parser.add_argument("--api-key", default=os.environ.get("OPENAI_API_KEY") or "local")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
-    sub.add_parser("models", help="켜져 있는 로컬 서버와 모델 id")
+    sub.add_parser("models", help="켜져 있는 로컬 서버와 모델 id를 보여 줍니다")
 
-    listing = sub.add_parser("list", help="벤치와 스위트 목록")
-    listing.add_argument("--suite", help="이 스위트에 들어 있는 태스크만 표시")
+    listing = sub.add_parser("list", help="벤치와 스위트 목록을 보여 줍니다")
+    listing.add_argument("--suite", help="이 스위트에 들어 있는 태스크만 표시합니다")
 
-    run = sub.add_parser("run", help="벤치 또는 스위트를 실행")
-    run.add_argument("target", help="태스크 id, 스위트 이름, 또는 쉼표로 이은 목록")
-    run.add_argument("--model", help="서버가 보여주는 모델 id. 생략하면 목록에서 고른다")
-    run.add_argument("--base-url", help="OpenAI 호환 주소. 예: http://127.0.0.1:11434/v1")
-    run.add_argument("--limit", type=int, help="앞에서 N개만 채점. 전체 점수와는 비교하지 않는다")
-    run.add_argument("--shots", type=int, help="few-shot 개수. 생략하면 벤치 기본값")
-    run.add_argument("--repeats", type=int, default=1, help="GPQA 반복 횟수. simple-evals는 4")
-    run.add_argument("--subject", help="mmlu, kmmlu, mmlu-pro 과목 필터")
-    run.add_argument("--category", help="bfcl 범주. 예: simple_python,multiple 또는 all")
-    run.add_argument("--lang", help="mgsm 언어. 예: en, ko는 없음, zh, ja")
-    run.add_argument("--workers", type=int, default=1, help="동시 요청 수. 로컬 GPU는 1이 안전하다")
+    run = sub.add_parser("run", help="벤치 또는 스위트를 실행합니다")
+    run.add_argument("target", help="태스크 id, 스위트 이름, 또는 쉼표로 이은 목록입니다")
+    run.add_argument("--model", help="서버가 보여주는 모델 id입니다. 생략하면 목록에서 고릅니다")
+    run.add_argument("--base-url", help="OpenAI 호환 주소입니다. 예: http://127.0.0.1:11434/v1")
+    run.add_argument("--limit", type=int, help="앞에서 N개만 채점합니다. 전체 점수와는 비교하지 않습니다")
+    run.add_argument("--shots", type=int, help="few-shot 개수입니다. 생략하면 벤치 기본값을 사용합니다")
+    run.add_argument("--repeats", type=int, default=1, help="GPQA 반복 횟수입니다. simple-evals는 4입니다")
+    run.add_argument("--subject", help="mmlu, kmmlu, mmlu-pro 과목 필터입니다")
+    run.add_argument("--category", help="bfcl 범주입니다. 예: simple_python,multiple 또는 all")
+    run.add_argument("--lang", help="mgsm 언어입니다. 예: en, ko는 없습니다, zh, ja")
+    run.add_argument("--workers", type=int, default=1, help="동시 요청 수입니다. 로컬 GPU는 1이 안전합니다")
     run.add_argument("--max-tokens", type=int, default=4096)
     run.add_argument("--temperature", type=float, default=0.0)
-    run.add_argument("--timeout", type=float, default=300, help="요청 하나당 초")
-    run.add_argument("--max-errors", type=int, default=8, help="연속 호출 실패가 이 횟수면 멈춘다")
-    run.add_argument("--no-think", action="store_true", help="서버가 지원하면 enable_thinking=false")
-    run.add_argument("--fresh", action="store_true", help="저장된 답을 무시하고 다시 받는다")
-    run.add_argument("--baseline-model", help="arena-hard 비교 기준 모델")
-    run.add_argument("--baseline-url", help="기준 모델 서버. 생략하면 같은 서버")
-    run.add_argument("--judge-model", help="arena-hard 심판 모델")
-    run.add_argument("--judge-url", help="심판 모델 서버. 생략하면 같은 서버")
-    run.add_argument("--runs-dir", default="runs", help="결과 디렉터리")
+    run.add_argument("--timeout", type=float, default=300, help="요청 하나당 제한 시간(초)입니다")
+    run.add_argument("--max-errors", type=int, default=8, help="연속 호출 실패가 이 횟수면 멈춥니다")
+    run.add_argument("--no-think", action="store_true", help="서버가 지원하면 enable_thinking=false로 둡니다")
+    run.add_argument("--fresh", action="store_true", help="저장된 답을 무시하고 다시 받습니다")
+    run.add_argument("--baseline-model", help="arena-hard 비교 기준 모델입니다")
+    run.add_argument("--baseline-url", help="기준 모델 서버입니다. 생략하면 같은 서버를 사용합니다")
+    run.add_argument("--judge-model", help="arena-hard 심판 모델입니다")
+    run.add_argument("--judge-url", help="심판 모델 서버입니다. 생략하면 같은 서버를 사용합니다")
+    run.add_argument("--runs-dir", default="runs", help="결과 디렉터리입니다")
 
-    report = sub.add_parser("report", help="저장된 점수 요약")
-    report.add_argument("--model", help="모델 id에 이 문자열이 들어간 결과만")
+    report = sub.add_parser("report", help="저장된 점수 요약을 보여 줍니다")
+    report.add_argument("--model", help="모델 id에 이 문자열이 들어간 결과만 보여 줍니다")
     report.add_argument("--runs-dir", default="runs")
     return parser
 
@@ -147,7 +147,7 @@ def cmd_list(suite: str | None) -> int:
     if suite:
         return 0
     print("\n[스위트]")
-    print("  all              arena-hard를 뺀 전체")
+    print("  all              arena-hard를 뺀 전체입니다")
     for name, ids in SUITES.items():
         print(f"  {name:<16} {', '.join(ids)}")
     return 0

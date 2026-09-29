@@ -165,11 +165,11 @@ def bfcl_task() -> Task:
         title="BFCL",
         group="agent",
         protocol=(
-            "Berkeley Function Calling Leaderboard v4 파이썬 prompting. "
-            "기본은 simple, multiple, parallel, parallel_multiple의 AST 정확도 매크로 평균. "
-            "live와 irrelevance는 --category 로 켠다. 멀티턴 실행 환경은 포함하지 않는다."
+            "Berkeley Function Calling Leaderboard v4, Python prompting. "
+            "The default score is the macro average of AST accuracy on simple, multiple, parallel, and parallel_multiple. "
+            "live and irrelevance turn on with --category. The multi-turn execution environment is outside this runner."
         ),
-        blurb="함수 호출 에이전트 벤치. 이름, 인자, 값이 정답 집합과 맞는지 본다.",
+        blurb="Function-calling agent benchmark. It checks the name, arguments, and values against the answer set.",
         build=build_bfcl,
         grade_fn=grade_bfcl,
         aggregate_fn=aggregate_bfcl,

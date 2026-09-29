@@ -210,13 +210,13 @@ def reasoning_tasks() -> list[Task]:
         group="reasoning",
         default_shots=3,
         protocol=(
-            "Suzgun et al. 과제별 3-shot CoT. 프롬프트는 공개 cot-prompts 그대로이고, "
-            "질문은 'Q:' 뒤에 붙인 뒤 'A: Let's think step by step.'으로 끝낸다. "
-            "채점은 응답에서 마지막 'the answer is' 또는 'Answer:' 뒤를 정규화한 정확 일치. "
-            "객관식 (B)와 B는 같은 답이다. --shots 0 은 예시 없는 문제만이라 논문 점수와 비교하지 않는다. "
-            "logical deduction과 tracking shuffled objects의 3/5/7은 공개 파일이 같은 3-object 예시다."
+            "Suzgun et al. per-task 3-shot CoT. The prompt is the published cot-prompts text. "
+            "The question is appended after 'Q:' and the prompt ends with 'A: Let's think step by step.' "
+            "Scoring is an exact match on the normalized text after the last 'the answer is' or 'Answer:'. "
+            "Multiple choice treats (B) and B as the same answer. --shots 0 sends the bare question, which is separate from the paper's number. "
+            "For logical deduction and tracking shuffled objects, the 3/5/7 variants share the published 3-object exemplar file."
         ),
-        blurb="어려운 추론 과제 묶음. 산수, 논리, 날짜, 추적 문제.",
+        blurb="A set of hard reasoning tasks: arithmetic, logic, dates, and tracking.",
         grade_fn=grade_bbh,
     )
     bbh.build = lambda opts, task=bbh: build_bbh(task, opts)
@@ -224,8 +224,8 @@ def reasoning_tasks() -> list[Task]:
         id="musr",
         title="MuSR",
         group="reasoning",
-        protocol="서사 추론 객관식. murder / object / team 분할을 한 점수로 평균.",
-        blurb="긴 이야기를 읽고 범인, 위치, 배정을 고른다.",
+        protocol="Narrative multiple choice. The murder, object, and team splits are averaged into one score.",
+        blurb="Read a long story and choose the culprit, the location, or the assignment.",
         build=build_musr,
         grade_fn=grade_letter,
     )
@@ -234,8 +234,8 @@ def reasoning_tasks() -> list[Task]:
         title="DROP",
         group="reading",
         metric="f1",
-        protocol="DROP validation. 토큰 F1. 숫자 단어 정규화는 하지 않는다.",
-        blurb="글을 읽고 숫자나 짧은 답을 뽑는 독해.",
+        protocol="DROP validation. Token F1. Number words are left as written.",
+        blurb="Reading comprehension that extracts a number or a short answer.",
         build=build_drop,
         grade_fn=grade_drop,
         aggregate_fn=aggregate_drop,

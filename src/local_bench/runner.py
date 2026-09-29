@@ -164,7 +164,7 @@ def run_task(task, client, opts, runs_dir: Path) -> dict:
                     consecutive = _report_progress(task.id, done, len(examples), row, consecutive, max_errors)
     except KeyboardInterrupt:
         summary = _write_summary(task, client, opts, path, store, examples)
-        print(f"\n중단됨. 같은 명령을 다시 실행하면 {path} 에서 이어갑니다.", file=sys.stderr)
+        print(f"\n중단되었습니다. 같은 명령을 다시 실행하면 {path} 에서 이어갑니다.", file=sys.stderr)
         return summary
     except RuntimeError:
         if store.rows:
@@ -262,19 +262,19 @@ def format_summary(summary: dict) -> str:
     primary = summary.get("primary_metric") or "score"
     value = metrics.get(primary, metrics.get("score"))
     if summary.get("task") == "arena-hard" and isinstance(value, float):
-        shown = f"{value:.3f} (0.5면 기준 모델과 동점)"
+        shown = f"{value:.3f} (0.5 is a tie with the baseline)"
     elif isinstance(value, float):
         shown = f"{value * 100:.1f}%"
     else:
         shown = str(value)
     lines = [
         f"{summary.get('title') or summary.get('task')}  {shown}  (n={metrics.get('n')}, errors={metrics.get('errors')})",
-        f"  모델 {summary.get('model')}  @ {summary.get('base_url')}",
-        f"  프로토콜 {summary.get('protocol')}",
+        f"  model {summary.get('model')}  @ {summary.get('base_url')}",
+        f"  protocol {summary.get('protocol')}",
     ]
     rate = summary.get("completion_tokens_per_s")
     if isinstance(rate, (int, float)) and not isinstance(rate, bool):
-        lines.append(f"  생성 {rate:.1f} tok/s")
+        lines.append(f"  generated {rate:.1f} tok/s")
     extras = []
     for key, item in metrics.items():
         if key in {"n", "errors", "by_category", primary, "score"}:
@@ -286,7 +286,7 @@ def format_summary(summary: dict) -> str:
     by_category = metrics.get("by_category") or {}
     if by_category:
         parts = [f"{name} {row['score'] * 100:.1f}% (n={row['n']})" for name, row in by_category.items()]
-        lines.append("  범주 " + ", ".join(parts))
+        lines.append("  categories " + ", ".join(parts))
     return "\n".join(lines)
 
 

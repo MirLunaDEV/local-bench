@@ -63,7 +63,7 @@ def suite_ids(name: str) -> list[str]:
         return [task.id for task in all_tasks() if task.id != "arena-hard"]
     if name not in SUITES:
         known = ", ".join(["all", *SUITES])
-        raise SystemExit(f"없는 스위트 '{name}'. 사용 가능: {known}")
+        raise SystemExit(f"스위트 '{name}'은 없습니다. 사용할 수 있는 스위트: {known}")
     return list(SUITES[name])
 
 
@@ -83,7 +83,7 @@ def resolve_targets(spec: str) -> list:
             ids = [name]
         else:
             known = ", ".join(sorted(tasks))
-            raise SystemExit(f"없는 벤치 '{token.strip()}'.\n태스크: {known}\n스위트: all, {', '.join(SUITES)}")
+            raise SystemExit(f"벤치 '{token.strip()}'은 없습니다.\n태스크: {known}\n스위트: all, {', '.join(SUITES)}")
         for item_id in ids:
             if item_id in seen:
                 continue

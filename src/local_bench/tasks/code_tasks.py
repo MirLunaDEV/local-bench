@@ -111,10 +111,10 @@ def code_tasks() -> list[Task]:
         title="HumanEval",
         group="code",
         protocol=(
-            "OpenAI HumanEval 164문항 pass@1. 채팅 모델용으로 함수 전체를 받고, 공식 테스트로 실행한다. "
-            "서브프로세스와 시간 제한만 있다. 보안 샌드박스가 아니다."
+            "OpenAI HumanEval, 164 questions, pass@1. The chat model writes the whole function, which is run against the official tests. "
+            "Only a subprocess and a time limit are used. This is not a security sandbox."
         ),
-        blurb="파이썬 함수 164개. 모델이 쓴 코드를 이 컴퓨터에서 실행해 테스트를 통과하면 맞다.",
+        blurb="164 Python functions. The model's code runs on this machine and scores correct when the tests pass.",
         build=build_humaneval,
         grade_fn=grade_code,
     )
@@ -123,10 +123,10 @@ def code_tasks() -> list[Task]:
         title="MBPP",
         group="code",
         protocol=(
-            "MBPP full test 500문항. 문제 설명과 공개 테스트를 프롬프트에 넣고 pass@1로 실행한다. "
-            "서브프로세스와 시간 제한만 있다. 보안 샌드박스가 아니다."
+            "MBPP full test, 500 questions. The prompt includes the problem and the public tests, and the score is pass@1. "
+            "Only a subprocess and a time limit are used. This is not a security sandbox."
         ),
-        blurb="짧은 파이썬 문제 500개. HumanEval보다 쉽고, 테스트가 프롬프트에 포함된다.",
+        blurb="500 short Python problems. Easier than HumanEval, and the tests are included in the prompt.",
         build=build_mbpp,
         grade_fn=grade_code,
     )

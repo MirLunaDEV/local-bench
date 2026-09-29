@@ -90,11 +90,11 @@ class ArenaTask:
     group = "arena"
     metric = "score"
     default_shots = 0
-    blurb = "LM Arena의 자동 평가. 기준 모델과 심판 모델이 더 필요하다. 공개 Elo 그 자체는 아니다."
+    blurb = "LM Arena's automatic evaluation. It also needs a baseline model and a judge model. This score is separate from the public Elo."
     protocol = (
-        "Arena-Hard-Auto v2 질문 750개. 기준 답과 맞대어 두 번(자리 바꿈) 심판한다. "
-        "점수 0.5는 기준 모델과 비등. 공개 리더보드 숫자는 o3-mini 기준 답과 GPT-4.1 심판에 묶여 있으므로, "
-        "로컬 심판 점수는 그 표와 직접 비교되지 않는다."
+        "Arena-Hard-Auto v2, 750 questions. Each question is judged twice against the baseline answer, with the order swapped. "
+        "A score of 0.5 is a tie with the baseline model. The public leaderboard number uses o3-mini baseline answers and a GPT-4.1 judge, "
+        "so a local judge score stays separate from that table."
     )
 
     def execute(self, client, opts, runs_dir):

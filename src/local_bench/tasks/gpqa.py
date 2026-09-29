@@ -30,9 +30,9 @@ _FILES = {
 }
 
 _BLURBS = {
-    "gpqa": "대학원 과학 198문항. Artificial Analysis가 지수에서 빼기 전에도 따로 공개하던 Diamond 세트.",
-    "gpqa-main": "GPQA main 448문항. Diamond보다 넓고, 같은 프롬프트로 채점한다.",
-    "gpqa-extended": "GPQA extended. main에 검증이 더 느슨한 문항을 더한 세트.",
+    "gpqa": "198 graduate-science questions. The Diamond set Artificial Analysis kept publishing on its own after removing it from the index.",
+    "gpqa-main": "448 GPQA main questions. Broader than Diamond, and scored with the same prompt.",
+    "gpqa-extended": "GPQA extended. Main plus questions whose checks were looser.",
 }
 
 
@@ -97,8 +97,9 @@ def gpqa_tasks() -> list[Task]:
             title=title,
             group="science",
             protocol=(
-                "OpenAI simple-evals 0-shot CoT. 선택지 순서는 seed 0으로 섞는다. 기본 1회. --repeats 4 가 simple-evals 평균. "
-                "--limit 은 반복을 펼친 목록의 앞에서 자르므로, --repeats 와 같이 쓰면 첫 반복의 앞부분만 남는다."
+                "OpenAI simple-evals 0-shot CoT. Choice order is shuffled with seed 0. One pass by default. "
+                "--repeats 4 is the simple-evals average. --limit keeps the front of the list after repeats are expanded, "
+                "so using it with --repeats keeps only the front of the first pass."
             ),
             blurb=_BLURBS[kind],
         )
