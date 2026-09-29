@@ -1,5 +1,7 @@
 # local-bench
 
+[한국어](README.ko.md)
+
 Pick a local model and run the **public** benchmarks that Artificial Analysis and LM Arena use. The server only needs an OpenAI-compatible `POST /v1/chat/completions`. Ollama, LM Studio, llama.cpp, vLLM, and Q38 in this folder (port 1923) speak that protocol.
 
 Each score follows that benchmark's public grading rule. A run with `--limit` scores only the front of the set. Treat that number as a slice, and keep it separate from a full leaderboard score.
